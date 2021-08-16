@@ -13,11 +13,11 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    public User(String name) {
-        this.name = name;
+    public User() {
     }
 
-    public User() {
+    public User(String name) {
+        this.name = name;
     }
 
     public int getId() {
