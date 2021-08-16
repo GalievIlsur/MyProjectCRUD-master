@@ -6,31 +6,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import web.models.User;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.sql.Statement;
 import java.util.List;
 
 @Component
 public class UserDaoImp implements UserDao{
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<User> getAllUsers() {
-        TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-        return query.getResultList();
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override
     public User getUser(int id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from User u where u.id = :id");
+        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.id=:id", User.class);
         query.setParameter("id", id);
-        return (User)query.getSingleResult();
+        return query.getResultList().stream().findAny().orElse(null);
     }
 
     @Override
     public void save(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        entityManager.persist(user);
     }
 
     @Override
@@ -41,8 +44,7 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public void delete(int id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete User where id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+        User user = getUser(id);
+        entityManager.remove(user);
     }
 }
