@@ -6,12 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="MyProjectCRUD-master" />
-<<<<<<< HEAD
-=======
         <module name="MyProjectCRUD-master-master" />
->>>>>>> 8dd6475 (Переделал контроллер.)
-        <module name="MyProjectCRUD" />
       </profile>
     </annotationProcessing>
   </component>
