@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+
+<p th:text="'Name: ' + ${user.getName()}"></p>
+<p th:text="'Id: ' + ${user.getId()}"></p>
+<p th:text="'Login: ' + ${user.getLogin()}"></p>
+<p th:text="'Password: ' + ${user.getPassword()}"></p>
+<p th:text="'Roles: ' + ${user.getRoles()}"></p>
+
+<a th:href="@{/admin/users/edit(id=${user.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/admin/users/getUser(id=${user.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+<br/>
+
+<a th:href="@{/logout}" th:text="Logout"></a>
+
+</body>
+</html>
