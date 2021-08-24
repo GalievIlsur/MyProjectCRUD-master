@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Service
 @Component("userService")
-public class UserServiceImp implements UserService ,UserDetailsService{
+public class UserServiceImp implements UserService, UserDetailsService{
 
     private final UserDao userDao;
     private final RoleService roleService;
@@ -57,7 +57,7 @@ public class UserServiceImp implements UserService ,UserDetailsService{
 
     @Transactional
     @Override
-    public void update(int id, User user, User updateUser, String roleAdmin, String roleUser) {
+    public void update(int id, User user, String roleAdmin, String roleUser) {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getRoleByName("ROLE_USER"));
         if (roleAdmin != null && roleAdmin.equals("ROLE_ADMIN")) {
@@ -68,10 +68,10 @@ public class UserServiceImp implements UserService ,UserDetailsService{
         }
         user.setRoles(roles);
         User userToBeUpdated = getUser(id);
-        userToBeUpdated.setName(updateUser.getName());
-        userToBeUpdated.setLogin(updateUser.getLogin());
-        userToBeUpdated.setPassword(updateUser.getPassword());
-        userToBeUpdated.setRoles(updateUser.getRoles());
+        userToBeUpdated.setName(user.getName());
+        userToBeUpdated.setLogin(user.getLogin());
+        userToBeUpdated.setPassword(user.getPassword());
+        userToBeUpdated.setRoles(user.getRoles());
         userDao.save(userToBeUpdated);
 
     }

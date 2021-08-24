@@ -62,8 +62,8 @@ public class UsersController {
 
     @PatchMapping(value = "/edit")
     public String update(@ModelAttribute("user") User user, int id,@RequestParam(required=false) String roleAdmin,
-                         @RequestParam(required=false) String roleUser, User updateUser) {
-        userService.update(id, user, updateUser, roleAdmin, roleUser);
+                         @RequestParam(required=false) String roleUser) {
+        userService.update(id, user, roleAdmin, roleUser);
         return "redirect:/admin/users";
     }
 

@@ -8,9 +8,9 @@ public interface UserDao {
 
     void delete(int id);
 
-    public User getUser(int id);
+    User getUser(int id);
 
-    public User getUser(String login);
+    User getUser(String login);
 
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 }
