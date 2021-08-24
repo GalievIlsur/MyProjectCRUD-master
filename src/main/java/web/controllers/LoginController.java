@@ -1,37 +1,36 @@
 package web.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import web.service.UserService;
-
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class LoginController {
 
-    @Autowired
-    UserService userServiceImp;
+    private final UserService userService;
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public LoginController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping(value = "login")
     public String loginPage() {
         return "login/login";
     }
 
-    @RequestMapping("/user")
+    @GetMapping("/user")
     public String user(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("user", userServiceImp.getUser(principal.getName()));
+        modelMap.addAttribute("user", userService.getUser(principal.getName()));
         return "user/user";
     }
 
-    @RequestMapping("/admin")
+    @GetMapping("/admin")
     public String admin(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("admin", userServiceImp.getUser(principal.getName()));
+        modelMap.addAttribute("admin", userService.getUser(principal.getName()));
         return "admin/admin";
     }
 

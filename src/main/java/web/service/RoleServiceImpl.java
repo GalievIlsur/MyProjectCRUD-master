@@ -8,11 +8,13 @@ import web.models.Role;
 import java.util.Set;
 
 @Service
-@Component
-public class RoleServiceImp implements RoleService{
+public class RoleServiceImpl implements RoleService{
 
-    @Autowired
-    RoleDao roleDaoImp;
+    private final RoleDao roleDaoImp;
+
+    public RoleServiceImpl(RoleDao roleDaoImp) {
+        this.roleDaoImp = roleDaoImp;
+    }
 
     @Override
     public Role getRoleByName(String roleName) {

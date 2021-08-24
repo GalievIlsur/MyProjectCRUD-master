@@ -1,6 +1,5 @@
 package web.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +23,11 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 public class DatabaseConfig {
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
+
+    public DatabaseConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
