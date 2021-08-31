@@ -55,7 +55,7 @@ public class UsersController {
         return "users/edit";
     }
 
-    @PatchMapping(value = "/edit")
+    @PostMapping(value = "/edit")
     public String update(@ModelAttribute("user") User user, @RequestParam("id") int id) {
         userService.update(id, user);
         return "redirect:/admin/users";
