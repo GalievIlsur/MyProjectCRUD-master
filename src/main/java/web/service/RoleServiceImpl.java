@@ -1,11 +1,9 @@
 package web.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import web.dao.RoleDao;
 import web.models.Role;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -27,7 +25,7 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public Set<Role> allRoles() {
+    public List<Role> allRoles() {
         return roleDaoImp.allRoles();
     }
 }

@@ -1,6 +1,5 @@
 package web.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -57,23 +56,13 @@ public class UserServiceImp implements UserService, UserDetailsService{
 
     @Transactional
     @Override
-    public void update(int id, User user, String roleAdmin, String roleUser) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getRoleByName("ROLE_USER"));
-        if (roleAdmin != null && roleAdmin.equals("ROLE_ADMIN")) {
-            roles.add(roleService.getRoleByName("ROLE_ADMIN"));
-        }
-        if (roleUser != null && roleUser.equals("ROLE_USER")) {
-            roles.add(roleService.getRoleByName("ROLE_USER"));
-        }
-        user.setRoles(roles);
+    public void update(int id, User user) {
         User userToBeUpdated = getUser(id);
         userToBeUpdated.setName(user.getName());
         userToBeUpdated.setLogin(user.getLogin());
         userToBeUpdated.setPassword(user.getPassword());
         userToBeUpdated.setRoles(user.getRoles());
         userDao.save(userToBeUpdated);
-
     }
 
     @Transactional

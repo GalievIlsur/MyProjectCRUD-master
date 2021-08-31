@@ -1,12 +1,11 @@
 package web.dao;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import web.models.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.Set;
+import java.util.List;
 
 @Repository
 public class RoleDaoImpl implements RoleDao{
@@ -29,7 +28,7 @@ public class RoleDaoImpl implements RoleDao{
     }
 
     @Override
-    public Set<Role> allRoles() {
-        return (Set<Role>)entityManager.createQuery("select r from Role r", Role.class).getResultList();
+    public List<Role> allRoles() {
+        return entityManager.createQuery("select r from Role r", Role.class).getResultList();
     }
 }

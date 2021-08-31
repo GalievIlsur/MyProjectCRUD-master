@@ -6,7 +6,7 @@ import java.util.List;
 public interface UserService {
     void save(User user);
 
-    void update(int id, User user, String roleAdmin, String roleUser);
+    void update(int id, User user);
 
     void delete(int id);
 

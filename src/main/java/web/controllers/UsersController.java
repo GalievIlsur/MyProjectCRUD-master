@@ -1,24 +1,25 @@
 package web.controllers;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.models.Role;
 import web.models.User;
 import web.service.RoleService;
 import web.service.UserService;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/users")
 public class UsersController {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final RoleService roleService;
 
-    public UsersController(UserService userService, RoleService roleService) {
+    public UsersController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -41,6 +42,8 @@ public class UsersController {
 
     @PostMapping
     public String create(@ModelAttribute("user") User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         userService.save(user);
         return "redirect:/admin/users";
     }
@@ -48,22 +51,13 @@ public class UsersController {
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam("id") int id) {
         model.addAttribute("user", userService.getUser(id));
-        Set<Role> roles = userService.getUser(id).getRoles();
-        for (Role role : roles) {
-            if (role.equals(roleService.getRoleByName("ROLE_ADMIN"))) {
-                model.addAttribute("roleAdmin", true);
-            }
-            if (role.equals(roleService.getRoleByName("ROLE_USER"))) {
-                model.addAttribute("roleUser", true);
-            }
-        }
+        model.addAttribute("roles", roleService.allRoles());
         return "users/edit";
     }
 
     @PatchMapping(value = "/edit")
-    public String update(@ModelAttribute("user") User user, int id,@RequestParam(required=false) String roleAdmin,
-                         @RequestParam(required=false) String roleUser) {
-        userService.update(id, user, roleAdmin, roleUser);
+    public String update(@ModelAttribute("user") User user, @RequestParam("id") int id) {
+        userService.update(id, user);
         return "redirect:/admin/users";
     }
 

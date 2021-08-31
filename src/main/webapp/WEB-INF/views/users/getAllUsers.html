@@ -6,17 +6,35 @@
     <title>All users</title>
 </head>
 <body>
-
+<table>
+    <tr><th>Name</th><th>Id</th><th>Login</th><th>Password</th><th>Roles</th><th>Action</th></tr>
 <div th:each="user : ${users}">
-  <a th:href="@{/admin/users/getUser(id=${user.getId()})}" th:text="${user.getName()}"></a>
+    <tr>
+        <td><a th:text="${user.getName()}"></a></td>
+        <td><a th:text="${user.getId()}"></a></td>
+        <td><a th:text="${user.getLogin()}"></a></td>
+        <td><a th:text="${user.getPassword()}"></a></td>
+        <td><a th:text="${user.getRoles()}"></a></td>
+        <td>
+            <a th:href="@{/admin/users/edit(id=${user.getId()})}">
+        <button type="button" th:text="Edit"></button>
+            </a>
+            <form th:method="DELETE" th:action="@{/admin/users/getUser(id=${user.getId()})}">
+        <input type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
 </div>
+</table>
 <br/>
 <hr/>
-
-<a href="/admin/users/new">Create new user</a>
+<a href="/admin/users/new">
+    <button type="button">Create new user</button>
+</a>
 <br/>
-
-<a th:href="@{/logout}" th:text="Logout"></a>
+<a th:href="@{/logout}">
+    <button type="button" th:text="Logout"></button>
+</a>
 
 </body>
 </html>

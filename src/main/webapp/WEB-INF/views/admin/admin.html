@@ -7,9 +7,13 @@
 </head>
 <body>
     <p th:text="'Hello, ' + ${admin.getName()} + '!'"></p>
-    <br/>
-    <a href="/admin/users">Table of users</a>
-    <br/>
-    <a th:href="@{/logout}" th:text="Logout"></a>
+    <br>
+    <a href="/admin/users">
+        <button type="button">Table of users</button>
+    </a>
+    <br>
+    <a th:href="@{/logout}">
+        <button type="button" th:text="Logout"></button>
+    </a>
 </body>
 </html>

@@ -21,24 +21,17 @@
     <br/>
   <input type="text" th:field="*{password}" id="password"/>
     <br/>
-  <label>
-    <input type="checkbox"
-           name="roleAdmin"
-           th:checked="${roleAdmin}"
-           th:value="ROLE_ADMIN"
-           th:text="Admin">
-  </label>
-  <label>
-    <input type="checkbox"
-           name="roleUser"
-           th:checked="${roleUser}"
-           th:value="ROLE_USER"
-           th:text="User">
-  </label>
+  <select multiple="multiple" th:field="*{roles}">
+    <option th:each="role : ${roles}"
+            th:value="${role.roleName}"
+            th:text="${role.roleName}"></option>
+  </select>
     <br/>
   <input type="submit" value="Update!"/>
 </form>
 <br/>
-<a th:href="@{/logout}" th:text="Logout"></a>
+<a th:href="@{/logout}">
+  <button type="button" th:text="Logout"></button>
+</a>
 </body>
 </html>
