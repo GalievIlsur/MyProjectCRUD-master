@@ -41,17 +41,17 @@ public class LoginController {
         modelMap.addAttribute("admin", userService.getUser(principal.getName()));
         modelMap.addAttribute("users", userService.getAllUsers());
         modelMap.addAttribute("roles", roleService.allRoles());
-        modelMap.addAttribute("user", new User());
+        modelMap.addAttribute("newUser", new User());
         return "admin/admin";
     }
 
-//    @PostMapping("/admin")
-//    public String create(@ModelAttribute("user") User user) {
-//            String encryptedPassword = passwordEncoder.encode(user.getPassword());
-//            user.setPassword(encryptedPassword);
-//            userService.save(user);
-//        return "redirect:/admin";
-//    }
+    @PostMapping("/admin")
+    public String create(@ModelAttribute("newUser") User user) {
+            String encryptedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encryptedPassword);
+            userService.save(user);
+        return "redirect:/admin";
+    }
 
     @PostMapping(value = "/admin/delete")
     public String delete(@RequestParam("id") int id) {
@@ -59,14 +59,10 @@ public class LoginController {
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "/admin/edit", params = "id", method = RequestMethod.GET)
-    public String edit(ModelMap modelMap, @RequestParam int id) {
-        modelMap.addAttribute("getUser", userService.getUser(id));
-        return "admin/admin";
-    }
-
-    @PostMapping("/admin/edit")
-    public String update(@ModelAttribute("getUser")User user, @RequestParam("id") int id) {
+    @PostMapping(path = "/admin/edit/{id}")
+    public String update(@PathVariable("id") int id, @ModelAttribute("user") User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         userService.update(id, user);
         return "redirect:/admin";
     }
