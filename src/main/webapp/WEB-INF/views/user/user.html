@@ -2,16 +2,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
     <title>User</title>
 </head>
 <body>
-<p th:text="'Hello, ' + ${user.getName()} + '!'"></p>
-<p th:text="'Your name: ' + ${user.getName()}"></p>
-<p th:text="'Your Id: ' + ${user.getId()}"></p>
-<br/>
-<a th:href="@{/logout}">
-    <button type="button" th:text="Logout"></button>
-</a>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal text-white"  th:text="${user.getName()} + ' with roles: ' + ${user.getRoles()}"></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="navbar-nav" href="/logout">Logout</a>
+    </nav>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="user-tab-tab" data-toggle="pill" href="#user-tab" role="tab" aria-controls="user-tab" aria-selected="true">User</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="user-tab" role="tabpanel" aria-labelledby="user-tab-tab">
+                    <h1 class="display-5 font-weight-bold">User information-page</h1>
+                    <div class="form-group">
+                        <table class="table table-bordered">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Login</th>
+                            <th>Roles</th>
+                            <thead class="thead-light">
+                            <th class="lopendeopdrachten" colspan="4">About user</th>
+                            </thead>
+                            <tbody>
+                            <tr class="table-info">
+                                <th scope="row" th:text="${user.getId()}"></th>
+                                <td><a th:text="${user.getName()}"></a></td>
+                                <td><a th:text="${user.getLogin()}"></a></td>
+                                <td><a th:text="${user.getRoles()}"></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

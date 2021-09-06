@@ -7,18 +7,18 @@
 </head>
 <body>
 
-<p th:text="'Name: ' + ${user.getName()}"></p>
-<p th:text="'Id: ' + ${user.getId()}"></p>
-<p th:text="'Login: ' + ${user.getLogin()}"></p>
-<p th:text="'Password: ' + ${user.getPassword()}"></p>
-<p th:text="'Roles: ' + ${user.getRoles()}"></p>
+<p th:text="'Name: ' + ${userByID.getName()}"></p>
+<p th:text="'Id: ' + ${userByID.getId()}"></p>
+<p th:text="'Login: ' + ${userByID.getLogin()}"></p>
+<p th:text="'Password: ' + ${userByID.getPassword()}"></p>
+<p th:text="'Roles: ' + ${userByID.getRoles()}"></p>
 
-<a th:href="@{/admin/users/edit(id=${user.getId()})}">Edit</a>
+<a th:href="@{/admin/getUser/edit(id=${userByID.getId()})}">Edit</a>
 
-<form th:method="DELETE" th:action="@{/admin/users/getUser(id=${user.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
-<br/>
+<!--<form th:method="POST" th:action="@{/admin/users/getUser(id=${user.getId()})}">-->
+<!--    <input type="submit" value="Delete"/>-->
+<!--</form>-->
+<!--<br/>-->
 
 <a th:href="@{/logout}">
     <button type="button" th:text="Logout"></button>

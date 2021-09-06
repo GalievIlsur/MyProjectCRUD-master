@@ -58,6 +58,7 @@ public class UserServiceImp implements UserService, UserDetailsService{
     @Override
     public void update(int id, User user) {
         User userToBeUpdated = getUser(id);
+        userToBeUpdated.setId(user.getId());
         userToBeUpdated.setName(user.getName());
         userToBeUpdated.setLogin(user.getLogin());
         userToBeUpdated.setPassword(user.getPassword());
