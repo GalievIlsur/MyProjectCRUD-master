@@ -2,7 +2,6 @@ package web.controllers;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import web.models.User;
@@ -12,14 +11,14 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/")
-public class LoginController {
+public class MyController {
 
     private final RoleService roleService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
 
-    public LoginController(UserService userService, PasswordEncoder passwordEncoder, RoleService roleService) {
+    public MyController(UserService userService, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
@@ -32,7 +31,7 @@ public class LoginController {
 
     @GetMapping("/user")
     public String user(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("user", userService.getUser(principal.getName()));
+        modelMap.addAttribute("userU", userService.getUser(principal.getName()));
         return "user/user";
     }
 
@@ -61,8 +60,6 @@ public class LoginController {
 
     @PostMapping(path = "/admin/edit/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("user") User user) {
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
         userService.update(id, user);
         return "redirect:/admin";
     }

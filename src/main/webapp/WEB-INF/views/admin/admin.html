@@ -76,8 +76,8 @@
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <form th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:method="POST" th:object="${user}" th:id = "'formForEdit'">
+                                                            <div class="modal-body" th:attr="data-target='formForEdit'+ ${user.getId()}">
+                                                                <form th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:method="POST" th:object="${user}" th:id="'formForEdit'+ ${user.getId()}">
                                                                     <fieldset disabled>
                                                                         <div class="form-group text-center">
                                                                             <label class = "font-weight-bold" for="formGroupExampleInputDis">ID</label>
@@ -97,17 +97,14 @@
                                                                         <input type="text" class="form-control" id="formGroupExampleInput3" th:field="*{password}">
                                                                     </div>
 
-                                                                    <select class="custom-select" multiple="multiple" th:field="*{roles}">
+                                                                    <select class="custom-select" multiple="multiple" th:value="*{roles}">
                                                                         <option th:each="role : ${roles}"
                                                                                 th:value="${role.roleName}"
                                                                                 th:text="${role.roleName}"></option>
                                                                     </select>
 
-                                                                    <button th:form="'formForEdit'" class="btn btn-primary" type="submit">Edit</button>
+                                                                    <button th:form="'formForEdit'+ ${user.getId()}" class="btn btn-primary" type="submit">Edit</button>
                                                                 </form>
-
-
-
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
