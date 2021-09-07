@@ -15,14 +15,10 @@ public class MyController {
 
     private final RoleService roleService;
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-
-    public MyController(RoleService roleService, UserService userService, PasswordEncoder passwordEncoder) {
+    public MyController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-
     }
 
     @GetMapping(value = "/login")
@@ -47,8 +43,6 @@ public class MyController {
 
     @PostMapping("/admin")
     public String create(@ModelAttribute User user) {
-            String encryptedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encryptedPassword);
             userService.save(user);
         return "redirect:/admin";
     }
@@ -61,8 +55,6 @@ public class MyController {
 
     @PostMapping(path = "/admin/edit")
     public String update(@RequestParam("id") int id, @ModelAttribute User user) {
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
         userService.update(id, user);
         return "redirect:/admin";
     }

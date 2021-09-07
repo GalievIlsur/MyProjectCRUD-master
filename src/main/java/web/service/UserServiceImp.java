@@ -1,8 +1,10 @@
 package web.service;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +19,11 @@ import java.util.List;
 public class UserServiceImp implements UserService, UserDetailsService{
 
     private final UserDao userDao;
-    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImp(UserDao userDao, RoleService roleService) {
+    public UserServiceImp(UserDao userDao, @Lazy PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
-        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -45,12 +47,16 @@ public class UserServiceImp implements UserService, UserDetailsService{
     @Transactional
     @Override
     public void save(User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         userDao.save(user);
     }
 
     @Transactional
     @Override
     public void update(int id, User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         User userToBeUpdated = getUser(id);
         userToBeUpdated.setId(user.getId());
         userToBeUpdated.setName(user.getName());
