@@ -7,12 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
-import web.models.Role;
 import web.models.User;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Service
@@ -48,9 +45,6 @@ public class UserServiceImp implements UserService, UserDetailsService{
     @Transactional
     @Override
     public void save(User user) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getRoleByName("ROLE_USER"));
-        user.setRoles(roles);
         userDao.save(user);
     }
 
