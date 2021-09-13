@@ -4,7 +4,6 @@ $(async function () {
     await addNewUser();
 })
 
-
 const userFetchService = {
     head: {
         'Accept': 'application/json',
@@ -17,8 +16,6 @@ const userFetchService = {
     deleteUser: async (id) => await fetch(`api/users/${id}`, {method: 'DELETE', headers: userFetchService.head}),
     findOneRole: async (id) => await fetch(`api/roles/${id}`)
 }
-
-
 
 async function getTableWithUsers() {
     let table = $('#mainTableWithUsers tbody');
@@ -53,8 +50,6 @@ async function getTableWithUsers() {
             })
         })
 
-    // обрабатываем нажатие на любую из кнопок edit или delete
-    // достаем из нее данные и отдаем модалке, которую к тому же открываем
     $("#mainTableWithUsers").find('button').on('click', (event) => {
         let defaultModal = $('#modalFormDefault');
 
@@ -68,9 +63,6 @@ async function getTableWithUsers() {
     })
 }
 
-
-// что то деалем при открытии модалки и при закрытии
-// основываясь на ее дата атрибутах
 async function getDefaultModal() {
     $('#modalFormDefault').modal({
         keyboard: true,
@@ -96,8 +88,6 @@ async function getDefaultModal() {
     })
 }
 
-
-// редактируем юзера из модалки редактирования, забираем данные, отправляем
 async function editUser(modal, id) {
     let preuser = await userFetchService.findOneUser(id);
     let user = preuser.json();
@@ -178,8 +168,6 @@ async function editUser(modal, id) {
     })
 }
 
-
-// удаляем юзера из модалки удаления
 async function deleteUser(modal, id) {
     let preuser1 = await userFetchService.findOneUser(id);
     let user = preuser1.json();
@@ -223,7 +211,6 @@ async function deleteUser(modal, id) {
 }
 
 async function addNewUser() {
-
     $('#addNewUserButton').click(async () =>  {
         let addUserForm = $('#newUserForm')
         let login = addUserForm.find('#AddNewUserLogin').val().trim();
