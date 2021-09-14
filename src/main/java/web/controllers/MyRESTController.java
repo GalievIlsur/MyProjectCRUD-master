@@ -3,7 +3,6 @@ package web.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import web.config.exception_handler.NoSuchUserException;
 import web.models.Role;
 import web.models.User;
 import web.service.RoleService;
@@ -33,9 +32,6 @@ public class MyRESTController {
     @GetMapping("roles/{id}")
     public ResponseEntity<Role> getRole(@PathVariable int id) {
         Role role = roleService.getRoleById(id);
-        if(role==null) {
-            throw new NoSuchUserException("There is no role with ID = " + id + " in Database");
-        }
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
 
@@ -54,9 +50,6 @@ public class MyRESTController {
     @GetMapping("users/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
         User user = userService.getUser(id);
-        if(user==null) {
-            throw new NoSuchUserException("There is no user with ID = " + id + " in Database");
-        }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

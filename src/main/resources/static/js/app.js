@@ -150,21 +150,9 @@ async function editUser(modal, id) {
             name: name,
             roles : res
         }
-        const response = await userFetchService.updateUser(data, id);
-
-        if (response.ok) {
-            getTableWithUsers();
+        await userFetchService.updateUser(data, id);
+            await getTableWithUsers();
             modal.modal('hide');
-        } else {
-            let body = await response.json();
-            let alert = `<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="sharaBaraMessageError">
-                            ${body.info}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>`;
-            modal.find('.modal-body').prepend(alert);
-        }
     })
 }
 
@@ -205,7 +193,7 @@ async function deleteUser(modal, id) {
 
     $("#deleteButton").on('click', async () => {
         await userFetchService.deleteUser(id);
-        getTableWithUsers();
+        await getTableWithUsers();
         modal.modal('hide');
     })
 }
@@ -235,6 +223,6 @@ async function addNewUser() {
         }
         await userFetchService.addNewUser(data);
         console.log(JSON.stringify(data))
-        getTableWithUsers();
+        await getTableWithUsers();
     })
 }
