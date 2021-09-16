@@ -13,24 +13,13 @@ import java.security.Principal;
 @RequestMapping
 public class StartController {
 
-    private final UserService userService;
-    private final RoleService roleService;
-
-    public StartController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
-    }
-
     @GetMapping("/admin")
-    public String getAdminPanel(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("admin", userService.getUser(principal.getName()));
-        modelMap.addAttribute("roles", roleService.allRoles());
+    public String getAdminPanel() {
         return "pages/admin";
     }
 
     @GetMapping("/user")
-    public String user(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("userU", userService.getUser(principal.getName()));
+    public String user() {
         return "pages/user";
     }
 }

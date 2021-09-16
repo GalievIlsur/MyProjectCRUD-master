@@ -9,11 +9,9 @@
     <title>Admin panel</title>
 </head>
 <body class="text-center">
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal text-white" th:text="${admin.getName()} + ' with roles: ' + ${admin.getRoles()}"></h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-        <a class="navbar-nav" href="/logout">Logout</a>
-    </nav>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm" id="formPrincipal">
+
 </div>
 
 <div class="container-fluid">
@@ -28,10 +26,8 @@
 
         <div class="col-md-9">
             <div class="tab-content" id="v-pills-tabContent">
-
                 <div class="tab-pane fade show active" id="user-tab" role="tabpanel" aria-labelledby="user-tab-tab">
                     <h1 class="display-5 font-weight-bold">Admin panel</h1>
-
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#mainTableWithUsers">User table</a>
@@ -59,7 +55,7 @@
                                         </tr>
                                         </thead>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tableBody">
 
                                     </tbody>
                                 </table>
@@ -80,11 +76,9 @@
                                         <div class="modal-footer">
 
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="tab-pane fade" id="newUser">
                             <h4 class="display-5 font-weight-bold">Add new user</h4>
@@ -99,10 +93,9 @@
 
 
                                         <select class="custom-select" id="rolesSelect" multiple="multiple" size="2">
-                                            <option th:each="role : ${roles}"
-                                                    th:value="${role.id}"
-                                                    th:text="${role.getRoleName()}"></option>
+
                                         </select>
+
                                         <button class="btn btn-success" type="button" id="addNewUserButton">Add new user</button>
                                     </form>
                                 </div>
@@ -114,7 +107,7 @@
                 <div class="tab-pane fade show in" id="qq" role="tabpanel" aria-labelledby="q">
                     <h1 class="display-5 font-weight-bold">User information-page</h1>
                     <div class="form-group">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="tableInfo">
                             <th>ID</th>
                             <th>Name</th>
                             <th>Login</th>
@@ -125,23 +118,15 @@
                             </th>
                             </thead>
                             <tbody>
-                            <tr class="table-info">
-                                <th scope="row" th:text="${admin.getId()}"></th>
-                                <td><a th:text="${admin.getName()}"></a></td>
-                                <td><a th:text="${admin.getLogin()}"></a></td>
-                                <td><a th:text="${admin.getRoles()}"></a></td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
